@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
+<style>
+#parameters-frame
+{
+	height : 100px;
+	background-color : black;
+	border : 2px;
+}
+#params-io-adaptors
+{
+	
+}
+#productionElement{
+	border-style: solid;
+	border-color: black;
+}
+#navItemItemText{
+	color: #FFFFFF;
+}
+.imagecontainer {
+	position: relative;
+}
+#navBarID{
+	background-color: #000000;
+}
+#navbarDropdown
+{
+	color: #FFFFFF;
+}
+.overlay {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	transition: .3s ease;
+}
+.imagecontainer:hover .overlay {
+	opacity: 1;
+}
+#io-adaptor-header
+{
+	width: 100%;
+	height : 30px;
+	border-bottom-style: solid;
+	border-bottom-width : 2px;
+}
+#db-adaptor-header
+{
+	width: 100%;
+	height : 30px;
+	border-bottom-style: solid;
+	border-bottom-width : 2px;
+}
+#params-header
+{
+	width: 100%;
+	height : 30px;
+	border-bottom-style: solid;
+	border-bottom-width : 2px;
+}
+#skills-header
+{
+	width: 100%;
+	height : 30px;
+	border-bottom-style: solid;
+	border-bottom-width : 2px;
+}
+</style>
+
+    <title>AAS Generator Interface</title>
+  </head>
+  <body onload="documentLoad()">
+<div class="container" >
+	<div class = "row" style = "height :30px">
+	</div>
+<form id = "dataForm" action="/" method="post" enctype="multipart/form-data" >
+	
+	<div class = "row" style = "height :50px">
+			<div class = "col-md-4">
+			</div>
+			<div class = "col-md-4">
+				<div class = "d-flex justify-content-center">
+				<div class="imagecontainer">
+				   <input type="image" id = "io-adaptor-img"  src="/static/images/generate.svg" alt="Submit button">
+				   <div class="overlay">
+				   		<input type="image" id = "io-adaptor-img-overlay" src="/static/images/generate1.svg">
+				   </div>
+				</div>
+				</div>	
+			</div>
+			
+			<div class="col-md-4">
+		        {% with flashMessages = get_flashed_messages(category_filter=["success"]) %}
+		            {% if flashMessages %}
+		                {%- for message in flashMessages %}
+		                 <div class="alert alert-success alert-dismissible fade show" role="alert">
+							<p style = "text-align: center; font-size: 10px;">{{message}}</p>
+					 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>                     
+	                {% endfor -%}
+	            {% endif %}
+	        {% endwith %}
+	        {% with flashMessages = get_flashed_messages(category_filter=["error"]) %}
+	            {% if flashMessages %}
+	                {%- for message in flashMessages %}
+	                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<p style = "text-align: center; font-size: 10px;">{{message}}</p>
+					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>   
+	                {% endfor -%}
+	            {% endif %}
+	        {% endwith %}
+	        
+	            {% with flashMessages = get_flashed_messages(category_filter=["info"]) %}
+	            {% if flashMessages %}
+	                {%- for message in flashMessages %}
+	                <div class="alert alert-info alert-dismissible fade show" role="alert">
+						<p style = "text-align: center; font-size: 10px;">{{message}}</p>
+					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>   
+	                {% endfor -%}
+	            {% endif %}
+	        {% endwith %}
+	    </div>	
+	</div>
+	
+   	<div class = "row" id = "file-adaptor" style = "height : 200px">
+		<div class = "col-1"></div>
+		<div class = "col-10">
+			<div class = "container">
+				<div class = "row" id = "db-adaptor-header">
+					<div class="align-text-bottom"><h6>Press Me !! For the Code Snippet</h6></div>
+				</div>
+				<div class = "row" style = "width: 100%; height : 45px;">
+				</div>
+				<div class = "row text-center" style = "width: 100%">
+					  <label for="customFileLangHTML">
+							<div class=" d-flex justify-content-center imagecontainer">
+							    <img class = "center-block" id = "io-adaptor-img"  src="/static/images/upload.svg" >
+								<div class="d-flex justify-content-center  overlay">
+								    <img class = "center-block" id = "io-adaptor-img-overlay" src="/static/images/upload1.svg">
+								</div>
+							</div>					  
+					  </label>
+				<input type="file" class="custom-file-input" id="customFileLangHTML" style = "display : none" name = "file" accept=".json" />
+				
+				</div>
+								<div class = "row" id = "db-adaptor-header">
+					<div class="align-text-bottom"><h6>Upload the StateMachine JSON File</h6></div>
+				</div>
+						
+			</div>
+		</div>
+		<div class = "col-1"></div>
+	</div>
+		
+</form>		
+</div>
+
+
+	<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+    <script src="/static/js/popper.min.js"  crossorigin="anonymous"></script>
+    <script src="/static/js/bootstrap.min.js"crossorigin="anonymous"></script>
+  </body>
+</html>

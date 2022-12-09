@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   height="75"
+   width="75"
+   sodipodi:docname="mqtt.svg"
+   version="1.1"
+   viewBox="0 0 75 75"
+   enable-background="new 0 0 512.555 512.555"
+   id="Layer_1">
+  <metadata
+     id="metadata61">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs59">
+    <filter
+       height="1.0070364"
+       y="-0.0035181867"
+       width="1.0073714"
+       x="-0.0036857089"
+       id="filter918"
+       style="color-interpolation-filters:sRGB"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur920"
+         stdDeviation="0.687999"
+         inkscape:collect="always" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     inkscape:current-layer="g20"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-6"
+     inkscape:window-x="-6"
+     inkscape:cy="32.145218"
+     inkscape:cx="159.38562"
+     inkscape:zoom="1.91199"
+     showgrid="false"
+     id="namedview57"
+     inkscape:window-height="658"
+     inkscape:window-width="1280"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     inkscape:document-rotation="0" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g24">
+    <g
+       id="g22">
+      <g
+         id="g20">
+        <path
+           transform="matrix(0.14587963,0,0,0.15863842,0.24087609,18.44545)"
+           style="filter:url(#filter918)"
+           id="path2"
+           d="m 437.333,362.944 c -6.4,0 -10.667,4.267 -10.667,10.667 v 64 c 0,17.066 -14.934,32 -32,32 H 53.333 c -17.066,0 -32,-14.934 -32,-32 V 128.278 h 405.333 v 74.667 c 0,6.4 4.267,10.667 10.667,10.667 6.4,0 10.667,-4.267 10.667,-10.667 v -128 C 448,45.078 424.533,21.612 394.667,21.612 H 53.333 C 23.467,21.611 0,45.078 0,74.944 v 362.667 c 0,29.867 23.467,53.333 53.333,53.333 h 341.333 c 29.867,0 53.333,-23.467 53.333,-53.333 v -64 c 10e-4,-6.4 -4.266,-10.667 -10.666,-10.667 z M 138.667,64.278 c 6.4,0 10.667,4.267 10.667,10.667 0,6.4 -4.267,10.667 -10.667,10.667 -6.4,0 -10.667,-4.267 -10.667,-10.667 0,-6.401 4.267,-10.667 10.667,-10.667 z m -42.667,0 c 6.4,0 10.667,4.267 10.667,10.667 0,6.4 -4.267,10.667 -10.667,10.667 -6.4,0 -10.667,-4.267 -10.667,-10.667 0,-6.401 4.267,-10.667 10.667,-10.667 z m -42.667,0 c 6.4,0 10.667,4.267 10.667,10.667 0,6.4 -4.267,10.667 -10.667,10.667 -6.4,0 -10.667,-4.267 -10.667,-10.667 0.001,-6.401 4.268,-10.667 10.667,-10.667 z" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none"
+           x="11.834485"
+           y="62.293041"
+           id="text908"><tspan
+             sodipodi:role="line"
+             id="tspan906"
+             x="11.834485"
+             y="62.293041"
+             style="font-size:16px" /></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none"
+           x="9.7063475"
+           y="67.674515"
+           id="text912"><tspan
+             dy="0 0 0 0"
+             sodipodi:role="line"
+             id="tspan910"
+             x="9.7063475"
+             y="67.674515"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:Dubai;-inkscape-font-specification:'Dubai Bold'">MQTT ://</tspan></text>
+      </g>
+    </g>
+  </g>
+  <g
+     transform="translate(0,-21.612)"
+     id="g26" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g28" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g30" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g32" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g34" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g36" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g38" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g40" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g42" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g44" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g46" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g48" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g50" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g52" />
+  <g
+     transform="translate(0,-21.612)"
+     id="g54" />
+</svg>
