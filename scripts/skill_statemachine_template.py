@@ -98,7 +98,7 @@ except ImportError:
         self.plcHandler = self.baseClass.pyAAS.assetaccessEndpointHandlers[MODULE_NAME] # 1
         
         #accessing the list property variables Dictionary are specified in the configuration file.  
-        self.propertylist = self.plcHandler.propertylist # 2
+        self.propertylist = self.baseClass.pyAAS.tdPropertiesList[self.baseClass.aasIdentificationId]
         
         PLC_OPCUA represents the module specific to opcua adaptor to access the PLC
         
@@ -236,7 +236,7 @@ class {{StateName}}(object):
         self.oMessages = "{{oMessage}}".split("/")
         outboundMessages = []
         for oMessage in self.oMessages:
-            message = self.baseClass.StateName_In
+            message = self.baseClass.{{StateName}}_In
             self.gen = Generic()
             #receiverId = "" # To be decided by the developer
             #receiverRole = "" # To be decided by the developer
