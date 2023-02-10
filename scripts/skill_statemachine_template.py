@@ -1,9 +1,9 @@
-'''
+"""
 Copyright (c) 2023 Otto-von-Guericke-Universitaet Magdeburg, Lehrstuhl Integrierte Automation
 Author: {{MetaData/Author}}
 This source code is licensed under the Apache License 2.0 (see LICENSE.txt).
 This source code may use other Open Source software components (see LICENSE.txt).
-'''
+"""
 from datetime import datetime
 
 try:
