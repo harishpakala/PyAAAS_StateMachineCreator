@@ -254,7 +254,7 @@ class {{StateName}}(object):
             I40FrameData =      {
                                     "semanticProtocol": self.baseClass.semanticProtocol,
                                     "type" : oMessage,
-                                    "messageId" : oMessage+"_"+str(self.baseClass.pyAAS.dba.getMessageCount()["message"][0]+1),
+                                    "messageId" : oMessage+"_"+str(self.baseClass.pyAAS.dba.getMessageCount()[0]+1),
                                     "SenderAASID" : self.baseClass.pyAAS.AASID,
                                     "SenderRolename" : self.baseClass.skillName,
                                     "conversationId" : message["frame"]["conversationId"],
@@ -444,6 +444,7 @@ class {{MetaData/Name}}(object):
         self.enabledState = self.enabledStatus["{{enabled}}"]
         
         self.semanticProtocol = "{{semanticProtocol}}"
+        self.initialState = "{{InitialState}}"
         self.gen = Generic()
         self.createStatusMessage()
         self.productionStepSeq = []
