@@ -1,17 +1,9 @@
 '''
-Copyright (c) 2021-2022 OVGU LIA
+Copyright (c) 2023 Otto-von-Guericke-Universitaet Magdeburg, Lehrstuhl Integrierte Automation
 Author: {{MetaData/Author}}
 This source code is licensed under the Apache License 2.0 (see LICENSE.txt).
 This source code may use other Open Source software components (see LICENSE.txt).
 '''
-
-import json
-import logging
-import random
-import sys
-import time
-import uuid
-
 from datetime import datetime
 
 try:
@@ -19,6 +11,12 @@ try:
 except ImportError:
     import Queue as Queue 
 
+import json
+import logging
+import random
+import sys
+import time
+import uuid
 
 try:
     from utils.i40data import Generic
@@ -95,10 +93,10 @@ except ImportError:
         
         MODULE_NAME = "PLC_OPCUA"
         #Accessing the specifc assetaaccess adaptor 
-        self.plcHandler = self.baseClass.pyAAS.assetaccessEndpointHandlers[MODULE_NAME] # 1
+        self.plcHandler = self.baseClass.pyaas.assetaccessEndpointHandlers[MODULE_NAME] # 1
         
         #accessing the list property variables Dictionary are specified in the configuration file.  
-        self.propertylist = self.baseClass.pyAAS.tdPropertiesList[self.baseClass.aasIdentificationId]
+        self.propertylist = self.baseClass.pyaas.tdPropertiesList[self.baseClass.aasIdentificationId]
         
         PLC_OPCUA represents the module specific to opcua adaptor to access the PLC
         
@@ -136,14 +134,14 @@ except ImportError:
     I40FrameData is a dictionary
     
     language : English, German
-    format : Json, XML //self.baseClass.pyAAS.preferredCommunicationFormat
-    reply-to : HTTP,MQTT,OPCUA (endpoint) // self.baseClass.pyAAS.preferedI40EndPoint
+    format : Json, XML //self.baseClass.pyaas.preferredCommunicationFormat
+    reply-to : HTTP,MQTT,OPCUA (endpoint) // self.baseClass.pyaas.preferedI40EndPoint
     serviceDesc : "short description of the message"
 
         {
         "type" : ,
         "messageId":messageId,
-        "SenderAASID" : self.baseClass.AASID,
+        "SenderAASID" : self.baseClass.aasID,
         "SenderRolename" : "{{MetaData/Name}}",
         "conversationId" : "AASNetworkedBidding",
         "replyBy" :  "",   # "The communication protocol that the AAS needs to use while sending message to other AAS."
@@ -163,7 +161,7 @@ except ImportError:
     The fetching of the submodel elements is done dynamically from the database.
     
     example Boring (should be same as the one specified in AASX file.)
-    boringSubmodel = self.baseClass.pyAAS.dba.getSubmodelsbyId("BoringSubmodel")
+    boringSubmodel = self.baseClass.pyaas.dba.getSubmodelsbyId("BoringSubmodel")
     # result is list
     I40OutBoundMessage = {
                             "frame" : frame,
@@ -183,7 +181,7 @@ except ImportError:
         for i in range (0, self.baseClass.StateName_Queue.qsize()):
             message = inboundQueueList[i]
             self.instanceId = str(uuid.uuid1())
-            self.baseClass.pyAAS.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
+            self.baseClass.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
                                                             "conversationId":message["frame"]["conversationId"],
                                                             "messageType":message["frame"]["type"],
                                                             "messageId":message["frame"]["messageId"],
@@ -194,7 +192,7 @@ except ImportError:
 '''
     
 {{#each StateANDTransitionList}}
-class {{StateName}}(object):
+class {{StateName}}:
     
     def __init__(self, baseClass):
         '''
@@ -218,7 +216,7 @@ class {{StateName}}(object):
         for i in range (0, self.baseClass.{{StateName}}_Queue.qsize()):
             message = inboundQueueList[i]
             self.instanceId = str(uuid.uuid1())
-            self.baseClass.pyAAS.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
+            self.baseClass.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
                                                             "conversationId":message["frame"]["conversationId"],
                                                             "messageType":message["frame"]["type"],
                                                             "messageId":message["frame"]["messageId"],
@@ -232,7 +230,7 @@ class {{StateName}}(object):
              # for the execution of the state
 
     {{#each ODCYes}}
-    def create_Outbound_Message(self):
+    def create_Outbound_Message(self) -> List():
         self.oMessages = "{{oMessage}}".split("/")
         outboundMessages = []
         for oMessage in self.oMessages:
@@ -254,11 +252,11 @@ class {{StateName}}(object):
             I40FrameData =      {
                                     "semanticProtocol": self.baseClass.semanticProtocol,
                                     "type" : oMessage,
-                                    "messageId" : oMessage+"_"+str(self.baseClass.pyAAS.dba.getMessageCount()[0]+1),
-                                    "SenderAASID" : self.baseClass.pyAAS.AASID,
+                                    "messageId" : oMessage+"_"+str(self.baseClass.pyaas.dba.getMessageCount()[0]+1),
+                                    "SenderAASID" : self.baseClass.pyaas.aasID,
                                     "SenderRolename" : self.baseClass.skillName,
                                     "conversationId" : message["frame"]["conversationId"],
-                                    "replyBy" :  self.baseClass.pyAAS.lia_env_variable["LIA_PREFEREDI40ENDPOINT"],
+                                    "replyBy" :  self.baseClass.pyaas.lia_env_variable["LIA_PREFEREDI40ENDPOINT"],
                                     "replyTo" :  message["frame"]["replyBy"],
                                     "ReceiverAASID" :  receiverId,
                                     "ReceiverRolename" : receiverRole
@@ -271,11 +269,11 @@ class {{StateName}}(object):
             # the relevant submodel could be retrieved using
             # interactionElements
             
-            #self.InElem = self.baseClass.pyAAS.dba.getSubmodelsbyId({"aasId":self.baseClass.pyAAS.AASID,"submodelId":"BoringSubmodel"})
+            #self.InElem = self.baseClass.pyaas.dba.getSubmodelsbyId({"aasId":self.baseClass.pyaas.aasID,"submodelId":"BoringSubmodel"})
             #oMessage_Out ={"frame": self.frame,
             #                        "interactionElements":self.InElem["message"]}
             self.instanceId = str(uuid.uuid1())
-            self.baseClass.pyAAS.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
+            self.baseClass.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
                                                             "conversationId":oMessage_Out["frame"]["conversationId"],
                                                             "messageType":oMessage_Out["frame"]["type"],
                                                             "messageId":oMessage_Out["frame"]["messageId"],
@@ -285,7 +283,7 @@ class {{StateName}}(object):
         return outboundMessages
     {{/each}}
     
-    def run(self):
+    def run(self) -> object:
             
         self.baseClass.skillLogger.info("\n #############################################################################")
         # StartState
@@ -318,7 +316,7 @@ class {{StateName}}(object):
         {{/each}}
         self.{{StateName}}_Logic()
         
-    def next(self):
+    def next(self) -> object:
         OutputDocument = "{{OutputDocument}}"
         self.baseClass.skillLogger.info("OutputDocumentType : " + OutputDocument)
         
@@ -373,7 +371,7 @@ class Exit(object):
             return None
 {{/each}}        
 
-class {{MetaData/Name}}(object):
+class {{MetaData/Name}}:
     '''
     classdocs
     '''
@@ -411,21 +409,21 @@ class {{MetaData/Name}}(object):
                                 "semanticProtocol": self.semanticProtocol,
                                 "type" : "StausChange",
                                 "messageId" : "StausChange_1",
-                                "SenderAASID" : self.pyAAS.AASID,
+                                "SenderAASID" : self.pyaas.aasID,
                                 "SenderRolename" : self.skillName,
                                 "conversationId" : "AASNetworkedBidding",
                                 "replyBy" :  "",
                                 "replyTo" :"",
-                                "ReceiverAASID" :  self.pyAAS.AASID + "/"+self.skillName,
+                                "ReceiverAASID" :  self.pyaas.aasID + "/"+self.skillName,
                                 "ReceiverRolename" : "SkillStatusChange"
                             }
         self.statusframe = self.gen.createFrame(self.StatusDataFrame)
-        self.statusInElem = self.pyAAS.aasConfigurer.getStatusResponseSubmodel()
+        self.statusInElem = self.pyaas.aasConfigurer.getStatusResponseSubmodel()
         self.statusMessage ={"frame": self.statusframe,
                                 "interactionElements":[self.statusInElem]}
  
     
-    def __init__(self, pyAAS):
+    def __init__(self,pyaas):
         '''
         Constructor
         '''
@@ -434,7 +432,7 @@ class {{MetaData/Name}}(object):
                         {{#each StatesList}}  "{{StateName}}": "{{StateName}}",{{/each}}
                        }
         
-        self.pyAAS = pyAAS
+        self.pyaas = pyaas
         self.skillName = "{{MetaData/Name}}"
         self.initstateSpecificQueueInternal()
         self.initInBoundMessages()
@@ -450,21 +448,24 @@ class {{MetaData/Name}}(object):
         self.productionStepSeq = []
         self.responseMessage = {}
         
-    def Start(self, msgHandler, skillDetails,aasIndex):
+    def start(self, msgHandler,uuid ,aasID) -> None:
+        '''
+            Starting of the Skill state machine
+        '''
         self.msgHandler = msgHandler
         self.skillDetails = skillDetails
-        self.aasIndex = aasIndex
-        self.aasIdentificationId = self.skillDetails["aasIdentificationId"]
-        self.skillLogger = logging.getLogger(self.aasIdentificationId+"."+self.skillName)
+        self.aasID = aasID
+        self.uuid  = uuid
+        self.skillLogger = logging.getLogger(self.aasID+"."+self.skillName)
         self.skillLogger.setLevel(logging.DEBUG)
         
         self.commandLogger_handler = logging.StreamHandler(stream=sys.stdout)
         self.commandLogger_handler.setLevel(logging.DEBUG)
         
-        self.fileLogger_Handler = logging.FileHandler(self.pyAAS.base_dir+"/logs/"+"_"+str(self.aasIndex)+"_"+self.skillName+".LOG")
+        self.fileLogger_Handler = logging.FileHandler(self.pyaas.base_dir+"/logs/"+"_"+str(self.uuid)+"_"+self.skillName+".LOG")
         self.fileLogger_Handler.setLevel(logging.DEBUG)
         
-        self.listHandler = serviceLogHandler(self.pyAAS.skilllogListDict[self.aasIndex][self.skillName])
+        self.listHandler = ServiceLogHandler(LogList())
         self.listHandler.setLevel(logging.DEBUG)
         
         self.Handler_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s',datefmt='%m/%d/%Y %I:%M:%S %p')
