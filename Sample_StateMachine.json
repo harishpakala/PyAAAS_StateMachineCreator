@@ -1,0 +1,72 @@
+{
+  "MetaData": {
+    "Name": "ServiceProviderDrone",
+    "enabled": "Y",
+    "semanticProtocol": "www.admin-shell.io/interaction/servicerequistion",
+    "Author": "Marco Weiss",
+    "Date": "2022-12-06"
+	"SkillService" : "Drone Provision"
+  }
+  "StateMachine": {
+    "InitialState": "WaitforCfp",
+    "Transitions": [
+      {
+        "StartState": "WaitforCfp",
+        "TargetState": "PerformRequest",
+        "InputDocument": "CallofProposal",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+      {
+        "StartState": "PerformRequest",
+        "TargetState": "RunEngine",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+      {
+        "StartState": "RunEngine",
+        "TargetState": "Success",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+      {
+        "StartState": "RunEngine",
+        "TargetState": "Error",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+      {
+        "StartState": "Error",
+        "TargetState": "EnginedStop",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },	  
+      {
+        "StartState": "Success",
+        "TargetState": "EnginedStop",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+	  {
+        "StartState": "EnginedStop",
+        "TargetState": "RequestCompleted",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+	  {
+        "StartState": "RequestCompleted",
+        "TargetState": "WaitforCfp",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "Inform"
+      }
+    ]
+  },
+
+}

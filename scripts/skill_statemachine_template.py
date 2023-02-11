@@ -93,10 +93,10 @@ except ImportError:
         
         MODULE_NAME = "PLC_OPCUA"
         #Accessing the specifc assetaaccess adaptor 
-        self.plcHandler = self.baseClass.pyaas.assetaccessEndpointHandlers[MODULE_NAME] # 1
+        self.plcHandler = self.base_class.pyaas.assetaccessEndpointHandlers[MODULE_NAME] # 1
         
         #accessing the list property variables Dictionary are specified in the configuration file.  
-        self.propertylist = self.baseClass.pyaas.tdPropertiesList[self.baseClass.aasIdentificationId]
+        self.propertylist = self.base_class.pyaas.tdPropertiesList[self.base_class.aasIdentificationId]
         
         PLC_OPCUA represents the module specific to opcua adaptor to access the PLC
         
@@ -128,20 +128,20 @@ except ImportError:
     
     The ReceiverAASID and ReceiverRolename could be obtained from sender part of the incoming message
     and these are to be provided empty, if there is no receiver.
-    receiverId = self.baseClass.StateName_In["frame"]["sender"]["identification"]["id"]
-    receiverRole = self.baseClass.StateName_In["frame"]["sender"]["role"]["name"]
+    receiverId = self.base_class.StateName_In["frame"]["sender"]["identification"]["id"]
+    receiverRole = self.base_class.StateName_In["frame"]["sender"]["role"]["name"]
     
     I40FrameData is a dictionary
     
     language : English, German
-    format : Json, XML //self.baseClass.pyaas.preferredCommunicationFormat
-    reply-to : HTTP,MQTT,OPCUA (endpoint) // self.baseClass.pyaas.preferedI40EndPoint
+    format : Json, XML //self.base_class.pyaas.preferredCommunicationFormat
+    reply-to : HTTP,MQTT,OPCUA (endpoint) // self.base_class.pyaas.preferedI40EndPoint
     serviceDesc : "short description of the message"
 
         {
         "type" : ,
         "messageId":messageId,
-        "SenderAASID" : self.baseClass.aasID,
+        "SenderAASID" : self.base_class.aasID,
         "SenderRolename" : "{{MetaData/Name}}",
         "conversationId" : "AASNetworkedBidding",
         "replyBy" :  "",   # "The communication protocol that the AAS needs to use while sending message to other AAS."
@@ -161,7 +161,7 @@ except ImportError:
     The fetching of the submodel elements is done dynamically from the database.
     
     example Boring (should be same as the one specified in AASX file.)
-    boringSubmodel = self.baseClass.pyaas.dba.getSubmodelsbyId("BoringSubmodel")
+    boringSubmodel = self.base_class.pyaas.dba.getSubmodelsbyId("BoringSubmodel")
     # result is list
     I40OutBoundMessage = {
                             "frame" : frame,
@@ -173,15 +173,15 @@ except ImportError:
     example :
     
     def retrieveMessage(self):
-        self.baseClass.StateName_In = self.baseClass.StateName_Queue.get()
+        self.base_class.StateName_In = self.base_class.StateName_Queue.get()
     
     def saveMessage(self):
-        inboundQueueList = list(self.baseClass.StateName_Queue.queue) # in case for further processing is required
+        inboundQueueList = list(self.base_class.StateName_Queue.queue) # in case for further processing is required
         # else creation of the new queue is not required.
-        for i in range (0, self.baseClass.StateName_Queue.qsize()):
+        for i in range (0, self.base_class.StateName_Queue.qsize()):
             message = inboundQueueList[i]
             self.instanceId = str(uuid.uuid1())
-            self.baseClass.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
+            self.base_class.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
                                                             "conversationId":message["frame"]["conversationId"],
                                                             "messageType":message["frame"]["type"],
                                                             "messageId":message["frame"]["messageId"],
@@ -194,10 +194,10 @@ except ImportError:
 {{#each StateANDTransitionList}}
 class {{StateName}}:
     
-    def __init__(self, baseClass):
+    def __init__(self, base_class):
         '''
         '''
-        self.baseClass = baseClass
+        self.base_class = base_class
         
         #Transition to the next state is enabled using the targetState specific Boolen Variable
         # for each target there will be a separate boolean variable
@@ -207,16 +207,16 @@ class {{StateName}}:
         {{/each}}
     
     {{#each IDCYes}}
-    def retrieve_{{StateName}}_Message(self):
-        self.baseClass.{{StateName}}_In = self.baseClass.{{StateName}}_Queue.get()
+    def retrieve_{{StateName}}_Message(self) -> None:
+        self.base_class.{{StateName}}_In = self.base_class.{{StateName}}_Queue.get()
     
-    def saveMessage(self):
-        inboundQueueList = list(self.baseClass.{{StateName}}_Queue.queue) # in case for further processing is required
+    def saveMessage(self) -> None:
+        inboundQueueList = list(self.base_class.{{StateName}}_Queue.queue) # in case for further processing is required
         # else creation of the new queue is not required.
-        for i in range (0, self.baseClass.{{StateName}}_Queue.qsize()):
+        for i in range (0, self.base_class.{{StateName}}_Queue.qsize()):
             message = inboundQueueList[i]
             self.instanceId = str(uuid.uuid1())
-            self.baseClass.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
+            self.base_class.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
                                                             "conversationId":message["frame"]["conversationId"],
                                                             "messageType":message["frame"]["type"],
                                                             "messageId":message["frame"]["messageId"],
@@ -234,7 +234,7 @@ class {{StateName}}:
         self.oMessages = "{{oMessage}}".split("/")
         outboundMessages = []
         for oMessage in self.oMessages:
-            message = self.baseClass.{{StateName}}_In
+            message = self.base_class.{{StateName}}_In
             self.gen = Generic()
             #receiverId = "" # To be decided by the developer
             #receiverRole = "" # To be decided by the developer
@@ -250,13 +250,13 @@ class {{StateName}}:
             # The receiver Id should be
             
             I40FrameData =      {
-                                    "semanticProtocol": self.baseClass.semanticProtocol,
+                                    "semanticProtocol": self.base_class.semanticProtocol,
                                     "type" : oMessage,
-                                    "messageId" : oMessage+"_"+str(self.baseClass.pyaas.dba.getMessageCount()[0]+1),
-                                    "SenderAASID" : self.baseClass.pyaas.aasID,
-                                    "SenderRolename" : self.baseClass.skillName,
+                                    "messageId" : oMessage+"_"+str(self.base_class.pyaas.dba.getMessageCount()[0]+1),
+                                    "SenderAASID" : self.base_class.pyaas.aasID,
+                                    "SenderRolename" : self.base_class.skillName,
                                     "conversationId" : message["frame"]["conversationId"],
-                                    "replyBy" :  self.baseClass.pyaas.lia_env_variable["LIA_PREFEREDI40ENDPOINT"],
+                                    "replyBy" :  self.base_class.pyaas.lia_env_variable["LIA_PREFEREDI40ENDPOINT"],
                                     "replyTo" :  message["frame"]["replyBy"],
                                     "ReceiverAASID" :  receiverId,
                                     "ReceiverRolename" : receiverRole
@@ -269,11 +269,11 @@ class {{StateName}}:
             # the relevant submodel could be retrieved using
             # interactionElements
             
-            #self.InElem = self.baseClass.pyaas.dba.getSubmodelsbyId({"aasId":self.baseClass.pyaas.aasID,"submodelId":"BoringSubmodel"})
+            #self.InElem = self.base_class.pyaas.dba.getSubmodelsbyId({"aasId":self.base_class.pyaas.aasID,"submodelId":"BoringSubmodel"})
             #oMessage_Out ={"frame": self.frame,
             #                        "interactionElements":self.InElem["message"]}
             self.instanceId = str(uuid.uuid1())
-            self.baseClass.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
+            self.base_class.pyaas.dataManager.pushInboundMessage({"functionType":3,"instanceid":self.instanceId,
                                                             "conversationId":oMessage_Out["frame"]["conversationId"],
                                                             "messageType":oMessage_Out["frame"]["type"],
                                                             "messageId":oMessage_Out["frame"]["messageId"],
@@ -285,12 +285,12 @@ class {{StateName}}:
     
     def run(self) -> object:
             
-        self.baseClass.skillLogger.info("\n #############################################################################")
+        self.base_class.skillLogger.info("\n #############################################################################")
         # StartState
-        self.baseClass.skillLogger.info("StartState: {{StateName}}")
+        self.base_class.skillLogger.info("StartState: {{StateName}}")
         # InputDocumentType"
         InputDocument = "{{InMessageList}}"
-        self.baseClass.skillLogger.info("InputDocument : " + InputDocument)
+        self.base_class.skillLogger.info("InputDocument : " + InputDocument)
         
         {{#each IDCYes}}
         '''
@@ -303,7 +303,7 @@ class {{StateName}}:
             i = 0
             sys.stdout.write(" Waiting for response")
             sys.stdout.flush()
-            while (((self.baseClass.{{StateName}}_Queue).qsize()) == 0):
+            while (((self.base_class.{{StateName}}_Queue).qsize()) == 0):
                 time.sleep(1)
                 i = i + 1 
                 if i > 10: # Time to wait the next incoming message
@@ -318,21 +318,21 @@ class {{StateName}}:
         
     def next(self) -> object:
         OutputDocument = "{{OutputDocument}}"
-        self.baseClass.skillLogger.info("OutputDocumentType : " + OutputDocument)
+        self.base_class.skillLogger.info("OutputDocumentType : " + OutputDocument)
         
         {{#each ODCYes}}
         if (OutputDocument != "NA"):
             self.outboundMessages = self.create_Outbound_Message()
             for outbMessage in self.outboundMessages:
-                self.baseClass.sendMessage(outbMessage)
+                self.base_class.sendMessage(outbMessage)
         {{/each}}
         
         {{#each ConditionList}}
         if (self.{{targetstate}}_Enabled):
-            self.baseClass.skillLogger.info("Condition :" + "{{Condition}}")
-            ts = {{targetstate}}(self.baseClass)
-            self.baseClass.skillLogger.info("TargettState: " + ts.__class__.__name__)
-            self.baseClass.skillLogger.info("############################################################################# \n")
+            self.base_class.skillLogger.info("Condition :" + "{{Condition}}")
+            ts = {{targetstate}}(self.base_class)
+            self.base_class.skillLogger.info("TargettState: " + ts.__class__.__name__)
+            self.base_class.skillLogger.info("############################################################################# \n")
             return ts
         {{/each}}
         
@@ -340,19 +340,19 @@ class {{StateName}}:
 
 
 {{#each ExitState}}
-class Exit(object):
+class Exit:
     
-    def __init__(self, baseClass):
+    def __init__(self, base_class):
         '''
         '''
-        self.baseClass = baseClass
+        self.base_class = base_class
         self.I40OutBoundMessage = {}
         
-    def run(self):
+    def run(self) -> None:
             
-        self.baseClass.skillLogger.info("\n #############################################################################")
+        self.base_class.skillLogger.info("\n #############################################################################")
         # StartState
-        self.baseClass.skillLogger.info("StartState: Exit")
+        self.base_class.skillLogger.info("StartState: Exit")
         # InputDocumentType"
         '''
             In case a class expects an input document then.
@@ -360,14 +360,14 @@ class Exit(object):
             that is defined in the based class
         '''
 
-    def next(self):
+    def next(self) -> None:
         '''
                   If the condition is soecified is specified as '-' in the config file
                   please replace it with the needed condition usually True or False
         '''
         if (True):
-            self.baseClass.skillLogger.info("Condition :" + "-")
-            self.baseClass.skillLogger.info("############################################################################# \n")
+            self.base_class.skillLogger.info("Condition :" + "-")
+            self.base_class.skillLogger.info("############################################################################# \n")
             return None
 {{/each}}        
 
@@ -377,8 +377,9 @@ class {{MetaData/Name}}:
     '''
 
         
-    def initstateSpecificQueueInternal(self):
-        
+    def initstate_specific_queue_internal(self) -> None:
+        """
+        """
         self.QueueDict = {}
         
         {{# each StateANDTransitionList}}
@@ -392,19 +393,19 @@ class {{MetaData/Name}}:
             {{/each}}
             }
     
-    def initInBoundMessages(self):
+    def init_inbound_messages(self) -> Nones:
         {{#each InputMessageTypeList}}
         self.{{StateName}}_In = {}
         {{/each}}
         pass
     
-    def emptyAllQueues(self):
+    def empty_all_queues(self) -> None:
         for queueName,queue in self.QueueDict.items():
             queueList = list(self.queue.queue)
             for elem in range(0,len(queueList)):
                 queue.get()
     
-    def createStatusMessage(self):
+    def create_status_message(self) -> None:
         self.StatusDataFrame =      {
                                 "semanticProtocol": self.semanticProtocol,
                                 "type" : "StausChange",
@@ -434,24 +435,25 @@ class {{MetaData/Name}}:
         
         self.pyaas = pyaas
         self.skillName = "{{MetaData/Name}}"
-        self.initstateSpecificQueueInternal()
-        self.initInBoundMessages()
+        self.initstate_specific_queue_internal()
+        self.init_inbound_messages()
         self.currentConversationId = "temp"
         
         self.enabledStatus = {"Y":True, "N":False}
-        self.enabledState = self.enabledStatus["{{enabled}}"]
+        self.enabledState = self.enabledStatus["{{MetaData/enabled}}"]
         
-        self.semanticProtocol = "{{semanticProtocol}}"
-        self.initialState = "{{InitialState}}"
+        self.semanticProtocol = "{{MetaData/MetaData/semanticProtocol}}"
+        self.initialState = "{{MetaData/InitialState}}"
+        self.skillservice = "{{MetaData/SkillService}}"
         self.gen = Generic()
         self.createStatusMessage()
         self.productionStepSeq = []
         self.responseMessage = {}
         
     def start(self, msgHandler,uuid ,aasID) -> None:
-        '''
+        """
             Starting of the Skill state machine
-        '''
+        """
         self.msgHandler = msgHandler
         self.skillDetails = skillDetails
         self.aasID = aasID
@@ -503,23 +505,23 @@ class {{MetaData/Name}}:
                     self.stateChange(ts.__class__.__name__)
                     currentState = ts
     
-    def geCurrentSKILLState(self):
+    def geCurrentSKILLState(self) -> str:
         return self.SKILL_STATE
     
-    def getListofSKILLStates(self):
+    def getListofSKILLStates(self) -> List():
         return self.SKILL_STATES
     
     
-    def stateChange(self, STATE):
+    def stateChange(self, STATE) -> None:
         self.statusMessage["interactionElements"][0]["submodelElements"][0]["value"] = "I"
         self.statusMessage["interactionElements"][0]["submodelElements"][1]["value"] = "A006. internal-status-change"
         self.statusMessage["interactionElements"][0]["submodelElements"][2]["value"] = str(datetime.now()) +" "+STATE
         #self.sendMessage(self.statusMessage)
     
-    def sendMessage(self, sendMessage):
+    def sendMessage(self, sendMessage) -> None:
         self.msgHandler.putObMessage(sendMessage)
     
-    def receiveMessage(self,inMessage):
+    def receiveMessage(self,inMessage) -> None:
         try:    
             _conversationId = str(inMessage['frame']['conversationId'])
             senderRole = str(inMessage["frame"]['sender']['role']["name"])
