@@ -3,10 +3,10 @@
     "Name": "ServiceProviderDrone",
     "enabled": "Y",
     "semanticProtocol": "www.admin-shell.io/interaction/servicerequistion",
-    "Author": "Marco Weiss",
-    "Date": "2022-12-06"
+    "Author": "Harish Kumar Pakala",
+    "Date": "2022-12-06",
 	"SkillService" : "Drone Provision"
-  }
+  },
   "StateMachine": {
     "InitialState": "WaitforCfp",
     "Transitions": [
