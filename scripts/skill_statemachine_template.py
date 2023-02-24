@@ -410,12 +410,12 @@ class {{MetaData/Name}}:
                                 "semanticProtocol": self.semanticProtocol,
                                 "type" : "StausChange",
                                 "messageId" : "StausChange_1",
-                                "SenderAASID" : self.pyaas.aasID,
+                                "SenderAASID" : self.aasID,
                                 "SenderRolename" : self.skillName,
                                 "conversationId" : "AASNetworkedBidding",
                                 "replyBy" :  "",
                                 "replyTo" :"",
-                                "ReceiverAASID" :  self.pyaas.aasID + "/"+self.skillName,
+                                "ReceiverAASID" :  self.aasID + "/"+self.skillName,
                                 "ReceiverRolename" : "SkillStatusChange"
                             }
         self.statusframe = self.gen.createFrame(self.StatusDataFrame)
