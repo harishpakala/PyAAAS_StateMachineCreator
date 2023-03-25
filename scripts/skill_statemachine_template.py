@@ -450,12 +450,14 @@ class {{MetaData/Name}}:
         self.productionStepSeq = []
         self.responseMessage = {}
         
-    def start(self, msgHandler,uuid ,aasID) -> None:
+    def start(self, msgHandler,uuid ,shellObject,_uid) -> None:
         """
             Starting of the Skill state machine
         """
         self.msgHandler = msgHandler
         self.skillDetails = skillDetails
+        self.shellObject = shellObject
+        self.aasID = shellObject.aasELement["id"]
         self.aasID = aasID
         self.uuid  = uuid
         self.skillLogger = logging.getLogger(self.aasID+"."+self.skillName)
