@@ -96,7 +96,7 @@ except ImportError:
         self.plcHandler = self.base_class.pyaas.assetaccessEndpointHandlers[MODULE_NAME] # 1
         
         #accessing the list property variables Dictionary are specified in the configuration file.  
-        self.propertylist = self.base_class.pyaas.tdPropertiesList[self.base_class.aasIdentificationId]
+        self.propertylist = self.base_class.shellObject.thing_description
         
         PLC_OPCUA represents the module specific to opcua adaptor to access the PLC
         
