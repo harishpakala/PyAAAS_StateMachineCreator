@@ -157,6 +157,11 @@ class StatMachineGenerator(object):
         tempDict2['Author'] = str(metaData['Author'])
         tempDict2['Date'] = str(metaData['Date'])
         
+        tempDict2['enabled'] = str(metaData['enabled'])
+        tempDict2['semanticProtocol'] = str(metaData['semanticProtocol'])
+        tempDict2['InitialState'] = str(sMachine_dict['StateMachine']['InitialState'])
+        tempDict2['SkillService'] = str(metaData['SkillService'])
+        
         self.finalDictJSON['MetaData'] = tempDict2
         self.finalDictJSON['StatesList'] = statesListDict
         self.finalDictJSON['IDCList'] = IDCList

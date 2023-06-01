@@ -3,7 +3,11 @@
     "Name": "ServiceProviderDrone",
     "enabled": "Y",
     "semanticProtocol": "www.admin-shell.io/interaction/servicerequistion",
+<<<<<<< HEAD:Sample_StateMachine.json
     "Author": "Harish Kumar Pakala",
+=======
+    "Author": "Marco Weiss",
+>>>>>>> 2f0e267f7f039a9819f9fe5c32602efef5f1fad3:examples/Sample_StateMachine.json
     "Date": "2022-12-06",
 	"SkillService" : "Drone Provision"
   },
@@ -67,6 +71,10 @@
         "OutputDocument": "Inform"
       }
     ]
+<<<<<<< HEAD:Sample_StateMachine.json
   },
 
+=======
+  }
+>>>>>>> 2f0e267f7f039a9819f9fe5c32602efef5f1fad3:examples/Sample_StateMachine.json
 }

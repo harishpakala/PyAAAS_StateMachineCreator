@@ -1,0 +1,50 @@
+{
+  "MetaData": {
+    "Name": "AccessRequester",
+    "enabled": "Y",
+    "semanticProtocol": "www.admin-shell.io/interaction/3WayHandshake",
+    "Author": "Harish Kumar Pakala",
+    "Date": "202-02-03",
+	"SkillService" : "Access Requisition"
+  },
+  "StateMachine": {
+    "InitialState": "WaitforNewOrder",
+    "Transitions": [
+      {
+        "StartState": "WaitforNewOrder",
+        "TargetState": "SendHI",
+        "InputDocument": "Order",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+      {
+        "StartState": "SendHI",
+        "TargetState": "WaitforAck",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "Ping"
+      },
+      {
+        "StartState": "WaitforAck",
+        "TargetState": "SendReceiptAck",
+        "InputDocument": "PingAck",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+      {
+        "StartState": "SendReceiptAck",
+        "TargetState": "sendCompletionResponse",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "PingAckAccept"
+      },
+      {
+        "StartState": "sendCompletionResponse",
+        "TargetState": "WaitforNewOrder",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "OrderStatus"
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "MetaData": {
+    "Name": "AccessProvider",
+    "enabled": "Y",
+    "semanticProtocol": "www.admin-shell.io/interaction/3WayHandshake",
+    "Author": "Harish Kumar Pakala",
+    "Date": "202-02-03",
+	"SkillService" : "Access Provision"
+  },
+  "StateMachine": {
+    "InitialState": "Start",
+    "Transitions": [
+      {
+        "StartState": "Start",
+        "TargetState": "WaitforHi",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+      {
+        "StartState": "WaitforHi",
+        "TargetState": "SendAck",
+        "InputDocument": "Ping",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      },
+      {
+        "StartState": "SendAck",
+        "TargetState": "WaitforAck",
+        "InputDocument": "NA",
+        "Condition": "-",
+        "OutputDocument": "PingAck"
+      },
+      {
+        "StartState": "WaitforAck",
+        "TargetState": "WaitforHi",
+        "InputDocument": "PingAckAccept",
+        "Condition": "-",
+        "OutputDocument": "NA"
+      }
+    ]
+  }
+}
