@@ -7,6 +7,7 @@ from pybars import Compiler
 import os
 import platform
 
+
 class StateTransition(object):
     
     def __init__(self, StartState, InputDocument, Condition, OutputDocument, TargetState) :
@@ -89,9 +90,12 @@ class StatMachineGenerator(object):
                        
                         inputMessageTypeSet.add(state)
                     if tansit.OutputDocument != "NA":
+                        tempDict['OutputDocument_absent'] = True
                         outputMessageTypeSet.add(state)
                         oDListTemp.append({"ODC":tansit.OutputDocument,    
                                                          "StateName":state})
+                    else:
+                        tempDict['OutputDocument_absent'] = False
                     if ('sleep') in (tansit.Condition):
                         tempDict1['Condition'] = tansit.Condition + " == None"
                     elif tansit.Condition == "":
@@ -108,10 +112,12 @@ class StatMachineGenerator(object):
                     tList = []
                     for dict in iDListTemp:
                         tList.append(list(dict.values())[0])
-                    tempDict['InMessageList'] = ' / '.join(list(set(tList)))
+                    tempDict['InMessageList'] = (list(set(tList)))
+                    
                 else:
                     tempDict["IDCYes"] = []
-                    tempDict['InMessageList'] = "NA"
+                    tempDict['InMessageList'] = []
+                
                 
                 
                 if len(oDListTemp) > 0 :
@@ -120,6 +126,7 @@ class StatMachineGenerator(object):
                         otList.append(list(dict.values())[0])
                     otl = (list(set(otList)))
                     tempDict["ODCYes"] = [{"StateName":state,"oMessage": ' / '.join(otl)}]
+                    tempDict['OutMessageList'] = (list(set(otList)))
                     
                 else:
                     tempDict["ODCYes"] = []
