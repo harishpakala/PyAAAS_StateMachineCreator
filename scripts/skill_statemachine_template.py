@@ -6,13 +6,9 @@ This source code may use other Open Source software components (see LICENSE.txt)
 """
 
 try:
-    import queue as Queue
+    from utils.sip import Actor,AState
 except ImportError:
-    import Queue as Queue 
-try:
-    from utils.utils import Actor,AState
-except ImportError:
-    from main.utils.utils import Actor,AState
+    from src.main.utils.sip import Actor,AState
 
 {{#each StateANDTransitionList}}
 class {{StateName}}(AState):
