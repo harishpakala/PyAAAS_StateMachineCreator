@@ -58,21 +58,30 @@ A Hello state formatted as per Pyhton AASxServer and the StateMachine creator.
 * The developer needs to disable gaurd variable (False) in the <strong>actions()</strong> method, for the state that is not the next one.
 
 ### Predefined guard functions
+
 ```
-wait_untill_timeout(timer) The Control waits untill a specific number of seconds as assigned to argument to the method.
+wait_untill_timeout(timer)
 ```
+<p align="center">
+The Control waits untill a specific number of seconds as assigned to argument to the method.
+</p>
 <br/>
 
 ```
 wait_untill_message(message_count,msg_types)
-The Control waits untill a specific number of messaages are arrived in the buffer of the message type specified as an argument msg_types (List of strings).
 ```
+<p>
+The Control waits untill a specific number of messaages are arrived in the buffer of the message type specified as an argument msg_types (List of strings).
+</p>
 <br/>
 
 ```
 wait_untill_message_timeout(message_count,timer,msg_types)
-The Control waits untill a specific number of messaages are arrived in the buffer of the message type specified as an argument msg_types (List of strings). However if the timer expires, the control return
 ```
+<p>
+The Control waits untill a specific number of messaages are arrived in the buffer of the message type specified as an argument msg_types (List of strings). However if the timer expires, the control returns.
+</p>
+<br/>
 
 
 ## Issues
