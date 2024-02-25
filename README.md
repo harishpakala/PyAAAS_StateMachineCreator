@@ -42,7 +42,9 @@ Each skill / FSM is associated with a specific queue within in the [PythonAASxSe
 
 Transitions between the states are expected due to one of the three event-types a) Inbound Message, b) Internal Trigger c) External Trigger.<br/>
 </p>
+
 ## Sample State
+
 ```
 class Hello(AState):
     message_in =  ["Ping",]       
@@ -60,18 +62,21 @@ class Hello(AState):
         if (self.SendAck_Enabled):
             return "SendAck"
 ```
+
 <p align="center">
 A Hello state formatted as per Pyhton AASxServer and the StateMachine creator.
 </p>
-* The Hello state inherits the class Abstract class <strong>AState</strong> [source-code](https://github.com/harishpakala/PythonAASxServer/blob/c308300e3e78dbac5cacbbf6c09fc526a4d52eff/src/main/utils/sip.py#L43).
-* The static variable message_in represents the list of messages that the FSM is expected to receive in the specific state.
-* This class provides a set of guard conditions reequired for transitions to the next state. All the logic to the be executed within the Hello state needs to be written in the <strong>actions()</strong> method.
-* The <strong>transitions()</strong> method should not be edited.
-* For every next state a boolean guard variable will be provided in the constructor of the class, extracted from the JSON file. All the guard variables are defaulted to True.
-* The developer needs to disable gaurd variable (False) in the <strong>actions()</strong> method, for the state that is not the next one.
-* The [PythonAASxServer](https://github.com/harishpakala/PythonAASxServer) framework takes care and hide the complete mechanism behind the exchange of I4.0 messages between the skills.
+
+* The Hello state inherits the class Abstract class <strong>AState</strong> [source-code](https://github.com/harishpakala/PythonAASxServer/blob/c308300e3e78dbac5cacbbf6c09fc526a4d52eff/src/main/utils/sip.py#L43). <br/>
+* The static variable message_in represents the list of messages that the FSM is expected to receive in the specific state. <br/>
+* This class provides a set of guard conditions reequired for transitions to the next state. All the logic to the be executed within the Hello state needs to be written in the <strong>actions()</strong> method. <br/>
+* The <strong>transitions()</strong> method should not be edited. <br/>
+* For every next state a boolean guard variable will be provided in the constructor of the class, extracted from the JSON file. All the guard variables are defaulted to True. <br/>
+* The developer needs to disable gaurd variable (False) in the <strong>actions()</strong> method, for the state that is not the next one. <br/>
+* The [PythonAASxServer](https://github.com/harishpakala/PythonAASxServer) framework takes care and hide the complete mechanism behind the exchange of I4.0 messages between the skills. <br/>
 
 ### Send and Receive Methods 
+
 ```
 receive(msg_in)
 ```
@@ -79,13 +84,17 @@ receive(msg_in)
 Returns the first message from the inbound queue of type msg_in, if there is no message the method returns None.
 </p>
 <br/>
+
 ```
 receive_all(msg_in)
 ```
+
 <p align="center">
 Returns all the messages from the inbound queue of type msg_in, if there is no message the method returns an empty list.
 </p>
 <br/>
+
+### I4.0 Message creation Method  
 
 ```
 create_i40_message(msg_out,conversationId,receiverId,receiverRole)
@@ -95,6 +104,56 @@ Creates an I4.0 message of type 'msg_out' with a specific 'conversationId'. The 
 The combination of receiverId and receiverRole is expected to be unique within the specific interaction. The senderId or the receiverId represents unique Id of the type3 AAS to which the SKill is attached.
 </p>
 <br/>
+
+### Saving the I4.0 messages to the backend Methods
+
+```
+save_in_message(msg)
+```
+<p align="center">
+Copies the contents of an inbound I4.0 messsage to backend.
+</p>
+<br/>
+
+```
+save_out_message(msg_in)
+```
+
+<p align="center">
+Copies the contents of an outbound I4.0 messsage to backend.
+</p>
+<br/>
+
+### AASx Data Access Methods
+
+```
+GetSubmodelById(submodelId)
+```
+
+<p align="center">
+Returns the submodel of the specified submodelId. In case the submodel is not present or any internal error it returns error.
+</p>
+<br/>
+
+```
+GetSubmodelELementByIdshoortPath(submodelId)
+```
+
+<p align="center">
+Returns the submodel-element of the specified submodelId and IdShortPath combination. In case the submodel-element is not present or any internal error it returns error.
+</p>
+<br/>
+
+```
+save_submodel(submodel)
+```
+
+<p align="center">
+The replaces the existing submodel with the new submodel specified. Successful updation will return True, else returns False.
+</p>
+<br/>
+
+
 
 ### Predefined guard Methods
 
