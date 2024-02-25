@@ -99,7 +99,7 @@ Returns all the messages from the inbound queue of type msg_in, if there is no m
 ```
 create_i40_message(msg_out,conversationId,receiverId,receiverRole)
 ```
-<p align="center">
+<p>
 Creates an I4.0 message of type 'msg_out' with a specific 'conversationId'. The senderRole will the SKill that has called this method. The receiverRole is destination skill.
 The combination of receiverId and receiverRole is expected to be unique within the specific interaction. The senderId or the receiverId represents unique Id of the type3 AAS to which the SKill is attached.
 </p>
@@ -139,7 +139,7 @@ Returns the submodel of the specified submodelId. In case the submodel is not pr
 GetSubmodelELementByIdshoortPath(submodelId)
 ```
 
-<p align="center">
+<p>
 Returns the submodel-element of the specified submodelId and IdShortPath combination. In case the submodel-element is not present or any internal error it returns error.
 </p>
 <br/>
