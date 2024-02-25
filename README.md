@@ -29,6 +29,17 @@ The JSON file needs to be upload via the ulpoad image button, once finished the 
 
 The generated python source-code needs to be placed in the sub-directory (src/main/skills) of the PythonAASxServer [source code](https://github.com/harishpakala/PythonAASxServer).
 
+## Back Ground 
+### Finite State Machines and the SKills.
+<p align="justify">
+In PythonAASxServer the concept skills represent the behavior of the type 3 AAS. These skills are modelled as Finite State Machines (FSM). The interactions between the skills happens with exchange the [I4.0 Messages](https://github.com/harishpakala/I40_Language_Semantics). <br/>.
+
+<strong>Interaction Protocols </strong> represent structured sequence of messages exchanged between multiple partners / actors to achieve a specified goal (Example : Three-Way Handhake Protocol). An instance / execution of an interaction protocol is associated with a specific conversationID, all the messages wihtin the concersation have the same conversationID within I4.0 frame part. <br/>
+
+The Python source-code created by the state machine creator contains a set of classes. Each state represents a specific state and the entire state machine is represensted by anotehr class, that coordinates it's execution. <br/>
+
+Each skill / FSM is associated with a specific queue within in the [PythonAASxServer](https://github.com/harishpakala/PythonAASxServer) framework.
+</p>
 ## Sample State
 ```
 class Hello(AState):
