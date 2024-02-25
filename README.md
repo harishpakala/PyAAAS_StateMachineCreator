@@ -32,13 +32,15 @@ The generated python source-code needs to be placed in the sub-directory (src/ma
 ## Back Ground 
 ### Finite State Machines and the SKills.
 <p align="justify">
-In PythonAASxServer the concept skills represent the behavior of the type 3 AAS. These skills are modelled as Finite State Machines (FSM). The interactions between the skills happens with exchange the [I4.0 Messages](https://github.com/harishpakala/I40_Language_Semantics). <br/>.
-
-<strong>Interaction Protocols </strong> represent structured sequence of messages exchanged between multiple partners / actors to achieve a specified goal (Example : Three-Way Handhake Protocol). An instance / execution of an interaction protocol is associated with a specific conversationID, all the messages wihtin the concersation have the same conversationID within I4.0 frame part. <br/>
+In PythonAASxServer the concept skills represent the behavior of the type 3 AAS. These skills are modelled as Finite State Machines (FSM). The interactions between the skills happens with exchange the [I4.0 Messages](https://github.com/harishpakala/I40_Language_Semantics) <br/>
+   
+<strong>Interaction Protocols </strong> represent structured sequence of messages exchanged between multiple partners / actors to achieve a specified goal (Example : Three-Way Handhake Protocol). An instance / execution of an interaction protocol is associated with a specific conversationID, all the messages wihtin the concersation have the same conversationID within I4.0 frame part. Each skilll in a Interaction Protocol is specific Role Name. There could be multiple skills with same Role Name.<br/>
 
 The Python source-code created by the state machine creator contains a set of classes. Each state represents a specific state and the entire state machine is represensted by anotehr class, that coordinates it's execution. <br/>
 
-Each skill / FSM is associated with a specific queue within in the [PythonAASxServer](https://github.com/harishpakala/PythonAASxServer) framework.
+Each skill / FSM is associated with a specific queue within in the [PythonAASxServer](https://github.com/harishpakala/PythonAASxServer) framework.<br/>
+
+Transitions between the states are expected due to one of the three event-types a) Inbound Message, b) Internal Trigger c) External Trigger.<br/>
 </p>
 ## Sample State
 ```
@@ -61,14 +63,40 @@ class Hello(AState):
 <p align="center">
 A Hello state formatted as per Pyhton AASxServer and the StateMachine creator.
 </p>
-
-* The Hello state inherits the class Abstract class <strong>AState</strong> [source-code](https://github.com/harishpakala/PythonAASxServer/blob/c308300e3e78dbac5cacbbf6c09fc526a4d52eff/src/main/utils/sip.py#L43). 
+* The Hello state inherits the class Abstract class <strong>AState</strong> [source-code](https://github.com/harishpakala/PythonAASxServer/blob/c308300e3e78dbac5cacbbf6c09fc526a4d52eff/src/main/utils/sip.py#L43).
+* The static variable message_in represents the list of messages that the FSM is expected to receive in the specific state.
 * This class provides a set of guard conditions reequired for transitions to the next state. All the logic to the be executed within the Hello state needs to be written in the <strong>actions()</strong> method.
 * The <strong>transitions()</strong> method should not be edited.
 * For every next state a boolean guard variable will be provided in the constructor of the class, extracted from the JSON file. All the guard variables are defaulted to True.
 * The developer needs to disable gaurd variable (False) in the <strong>actions()</strong> method, for the state that is not the next one.
+* The [PythonAASxServer](https://github.com/harishpakala/PythonAASxServer) framework takes care and hide the complete mechanism behind the exchange of I4.0 messages between the skills.
 
-### Predefined guard functions
+### Send and Receive Methods 
+```
+receive(msg_in)
+```
+<p align="center">
+Returns the first message from the inbound queue of type msg_in, if there is no message the method returns None.
+</p>
+<br/>
+```
+receive_all(msg_in)
+```
+<p align="center">
+Returns all the messages from the inbound queue of type msg_in, if there is no message the method returns an empty list.
+</p>
+<br/>
+
+```
+create_i40_message(msg_out,conversationId,receiverId,receiverRole)
+```
+<p align="center">
+Creates an I4.0 message of type 'msg_out' with a specific 'conversationId'. The senderRole will the SKill that has called this method. The receiverRole is destination skill.
+The combination of receiverId and receiverRole is expected to be unique within the specific interaction. The senderId or the receiverId represents unique Id of the type3 AAS to which the SKill is attached.
+</p>
+<br/>
+
+### Predefined guard Methods
 
 ```
 wait_untill_timeout(timer)
