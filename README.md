@@ -181,6 +181,37 @@ The Control waits untill a specific number of messaages are arrived in the buffe
 </p>
 <br/>
 
+### Data access between states of a FSM
+
+Every FSM skill is provided by tape by the [PythonAASxServer](https://github.com/harishpakala/PythonAASxServer) framework. Each entry in the tape is key value pair.
+
+```
+push(key,value)
+```
+<p>
+Push a data element 'value' to the tape with an associated 'key'.
+</p>
+<br/>
+
+```
+retrieve(key)
+```
+<p>
+Returns the value associated with the specific key.
+</p>
+<br/>
+
+```
+flush()
+```
+<p>
+Clears the tapes, removes all the key,value pairs. Usually it is done afer an iteration of the FSM.
+</p>
+<br/>
+
+### Accessing the Asset Access Points
+
+
 
 ## Issues
 If you want to request new features or report bug [submit a new issue](https://github.com/harishpakala/PyAAAS_StateMachineCreator/issues/new)
