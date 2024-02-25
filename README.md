@@ -209,8 +209,25 @@ Clears the tapes, removes all the key,value pairs. Usually it is done afer an it
 </p>
 <br/>
 
-### Accessing the Asset Access Points
 
+## Controller class of a FSM AccessProvider
+
+class AccessProvider(Actor):
+    '''
+    classdocs
+    '''
+
+    def __init__(self):
+        '''
+        Constructor
+        '''      
+        Actor.__init__(self,"AccessProvider",
+                       "www.admin-shell.io/interaction/3WayHandshake",
+                       "Access Provision","Start")
+                        
+
+    def start(self):
+        self.run("Start")
 
 
 ## Issues
