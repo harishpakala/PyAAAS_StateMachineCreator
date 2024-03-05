@@ -29,7 +29,7 @@ class StatMachineGenerator(object):
         if self.platform == "Windows":
             self.skillTemplate = (base_dir) + "/scripts/skill_statemachine_template.py"
         elif self.platform == "Linux":
-            self.skillTemplate = (base_dir) + "/../../"
+            self.skillTemplate = (base_dir) + "/scripts/skill_statemachine_template.py"
         
     def preProcessStateMachineDATA(self):
         
