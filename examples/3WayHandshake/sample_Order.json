@@ -1,0 +1,31 @@
+{
+  "frame": {
+    "semanticProtocol": {
+      "keys": [
+        {
+          "type": "GlobalReference",
+          "value": "www.admin-shell.io/interaction/3WayHandshake"
+        }
+      ],
+      "type": "ExternalReference"
+    },
+    "type": "Order",
+    "messageId": "Order_1",
+    "sender": {
+      "id": "https://ovgu.de/aas/3wayhandshake",
+      "role": {
+        "name": "ExternalRequester"
+      }
+    },
+    "receiver": {
+      "id": "https://ovgu.de/aas/3wayhandshake",
+      "role": {
+        "name": "AccessRequester"
+      }
+    },
+    "conversationId": "ProductionOrder_1",
+    "replyBy": "",
+    "replyTo": ""
+  },
+  "interactionElements": []
+}
